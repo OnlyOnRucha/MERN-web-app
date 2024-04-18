@@ -3,33 +3,39 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Update = () => {
   const [fname, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState(0);
+  const [note, setNote] = useState("");
+  //const [age, setAge] = useState(0);
 
   const [error, setError] = useState();
   const { id } = useParams();
   console.log(id);
 
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
   //receving single user data
-  const getSingleData = async () => {
-    const response = await fetch(`http://localhost:8000/${id}`);
+  const getSingleUser = async () => {
+    const response = await fetch(`http://localhost:5000/${id}`);
     const result = await response.json();
 
-    if (response.ok) {
-      setName(result.name);
-      setEmail(result.email);
-      setAge(result.age);
+    if (!response.ok){
+        console.log(result.error);
+        setError(result.error);
+    }
+    if (response.ok){
+        setError("");
+        console.log("Updated user ", result);
+        setName(result.name);
+        setNote(result.note);
+        //setAge(result.age);
     }
   };
 
   //passing edited data to backend
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const updatedUser = { fname, email, age };
+    const updatedUser = { fname, note};
     console.log(updatedUser);
-    const response = await fetch(`http://localhost:8000/edit/${id}`, {
+    const response = await fetch(`http://localhost:5000/edit/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +55,7 @@ const Update = () => {
   };
 
   useEffect(() => {
-    getSingleData();
+    getSingleUser();
   }, []);
 
   return (
@@ -67,15 +73,15 @@ const Update = () => {
           />
         </div>
         <div class="mb-3">
-          <label class="form-label">Email address</label>
+          <label class="form-label">Add Note</label>
           <input
-            type="email"
+            type="text"
             class="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
           />
         </div>
-        <div class="mb-3">
+        {/* <div class="mb-3">
           <label class="form-label">Age</label>
           <input
             type="number"
@@ -83,7 +89,7 @@ const Update = () => {
             value={age}
             onChange={(e) => setAge(e.target.value)}
           />
-        </div>
+        </div> */}
         <button type="submit" class="btn btn-info">
           Update
         </button>

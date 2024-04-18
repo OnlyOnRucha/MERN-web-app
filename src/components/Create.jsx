@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState(0);
+  const [noteTitle, setNoteTitle] = useState("");
+  const [note, setNote] = useState("");
+  //const [age, setAge] = useState(0);
   const [error, setError] = useState("");
-  console.log(name,email,age);
+  console.log(noteTitle,note);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var addUser = { name, email, age };
+    var addUser = { noteTitle, note};
     console.log(addUser);
 
-    const response = await fetch("http://localhost:8000/", {
+    const response = await fetch("http://localhost:5000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,17 +23,17 @@ const Create = () => {
       body: JSON.stringify(addUser),
     });
 
-    const result = await response.json();
-
+    const result = await response.json(); //your data should be added to the backend 
+    //but to check if everything's working fine-->
     if (!response.ok) {
       console.log(result.error);
       setError(result.error);
     }
     if (response.ok) {
       console.log(result);
-      setName("");
-      setEmail("");
-      setAge(0);
+      setNoteTitle("");
+      setNote("");
+      //setAge(0);
       setError("");
       navigate("/read");
     }
@@ -41,29 +41,29 @@ const Create = () => {
 
   return (
     <div class="container my-2">
-      <h1 class="h1 text-center">Fill the data</h1>
+      <h1 class="h1 text-center">Create New Note</h1>
 
       {error && <div class="alert alert-danger"> {error} </div>}
-      <form className="form" onSubmit={handleSubmit}>
+      <form classnoteTitle="form" onSubmit={handleSubmit}>
         <div class="mb-3">
-          <label class="form-label">Name</label>
+          <label class="form-label">Title</label>
           <input
             type="text"
             class="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={noteTitle}
+            onChange={(e) => setNoteTitle(e.target.value)}
           />
         </div>
         <div class="mb-3">
-          <label class="form-label">Email address</label>
+          <label class="form-label">Add Note</label>
           <input
-            type="email"
+            type="note"
             class="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
           />
         </div>
-        <div class="mb-3">
+        {/* <div class="mb-3">
           <label class="form-label">Age</label>
           <input
             type="number"
@@ -71,7 +71,7 @@ const Create = () => {
             value={age}
             onChange={(e) => setAge(e.target.value)}
           />
-        </div>
+        </div> */}
         <button type="submit" class="btn btn-primary">
           Submit
         </button>
