@@ -12,7 +12,7 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var addUser = { noteTitle, note};
+    var addUser = {noteTitle, note};
     console.log(addUser);
 
     const response = await fetch("http://localhost:5000/", {
@@ -42,8 +42,7 @@ const Create = () => {
   return (
     <div class="container my-2">
       <h1 class="h1 text-center">Create New Note</h1>
-
-      {error && <div class="alert alert-danger"> {error} </div>}
+     {/* {error && <div class="alert alert-danger"> {error} </div>} */}
       <form classnoteTitle="form" onSubmit={handleSubmit}>
         <div class="mb-3">
           <label class="form-label">Title</label>
@@ -57,7 +56,7 @@ const Create = () => {
         <div class="mb-3">
           <label class="form-label">Add Note</label>
           <input
-            type="note"
+            type="text"
             class="form-control"
             value={note}
             onChange={(e) => setNote(e.target.value)}

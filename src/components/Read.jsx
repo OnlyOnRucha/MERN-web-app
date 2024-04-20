@@ -45,7 +45,7 @@ async function handleDelete(id) {
 
   return (
     <div className="container my-2">
-      {error && <div class="alert alert-danger"> {error} </div>}
+      {/* {error && <div class="alert alert-danger"> {error} </div>} */}
       <div className="row">
         {data?.map((ele) => (
           <div key={ele._id} className="col-3">

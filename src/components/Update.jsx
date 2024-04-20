@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Update = () => {
-  const [fname, setName] = useState("");
+  const [noteFTitle, setNoteTitle] = useState("");
   const [note, setNote] = useState("");
   //const [age, setAge] = useState(0);
 
@@ -24,7 +24,7 @@ const Update = () => {
     if (response.ok){
         setError("");
         console.log("Updated user ", result);
-        setName(result.name);
+        setNoteTitle(result.noteTitle);
         setNote(result.note);
         //setAge(result.age);
     }
@@ -33,7 +33,7 @@ const Update = () => {
   //passing edited data to backend
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const updatedUser = { fname, note};
+    const updatedUser = { noteFTitle, note};
     console.log(updatedUser);
     const response = await fetch(`http://localhost:5000/edit/${id}`, {
       method: "PATCH",
@@ -61,15 +61,15 @@ const Update = () => {
   return (
     <div class="container my-2">
       <h1 class="h1 text-center">Edit Data</h1>
-      {error && <div class="alert alert-danger"> {error} </div>}
+      {/* {error && <div class="alert alert-danger"> {error} </div>} */}
       <form className="form" onSubmit={handleUpdate}>
         <div class="mb-3">
-          <label class="form-label">Name</label>
+          <label class="form-label">Title</label>
           <input
             type="text"
             class="form-control"
-            value={fname}
-            onChange={(e) => setName(e.target.value)}
+            value={noteFTitle}
+            onChange={(e) => setNoteTitle(e.target.value)}
           />
         </div>
         <div class="mb-3">

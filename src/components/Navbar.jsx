@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <h3 className="navbar-brand" href="#">
-          MERN
+          NOTES
         </h3>
         <button
           className="navbar-toggler"
@@ -23,12 +23,12 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link to="/" className="nav-link" aria-current="page">
-                Create Post
+                Create Note
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/read" className="nav-link active" aria-current="page">
-                All Post
+                All Notes
               </Link>
             </li>
           </ul>
